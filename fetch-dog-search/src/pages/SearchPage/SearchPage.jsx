@@ -17,7 +17,7 @@ const SearchPage = () => {
 
 	const [breedFilter, setBreedFilter] = useState('');
 
-	const [sortOrder, setSortOrder] = useState('asc');
+	const [sortOrder, setSortOrder] = useState('desc');
 	const [pageCursor, setPageCursor] = useState(0);
 	const [pageSize, setPageSize] = useState(5);
 

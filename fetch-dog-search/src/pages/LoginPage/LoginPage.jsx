@@ -25,14 +25,14 @@ const Login = () => {
 	return (
 		<div className='login-container'>
 			<h1>
-				<LuBone /> Forever Friends <LuBone />
+				<LuBone /> Furever Friends <LuBone />
 			</h1>
-			<h3>Log in to find you forever friend</h3>
+			<h3>Log in to find you furever friend</h3>
 			<form
 				onSubmit={handleSubmit}
 				className='login-form'
 			>
-				<div>
+				<div className='login-form-input'>
 					<label htmlFor='name'>Name:</label>
 					<input
 						id='name'
@@ -44,7 +44,7 @@ const Login = () => {
 					/>
 				</div>
 
-				<div>
+				<div className='login-form-input'>
 					<label htmlFor='email'>Email:</label>
 					<input
 						id='email'
