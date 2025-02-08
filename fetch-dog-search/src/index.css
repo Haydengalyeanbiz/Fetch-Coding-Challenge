@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+	/* !FONT FAMILIES */
+	--ff-headers: 'Happy Monkey', serif;
+	--ff-primary: 'Roboto', serif;
+
+	/* !COLORS */
+	--dark-clr: #526e48;
+	--dark-accent-clr: #809d3c;
+	--light-accent-clr: #a9c46c;
+	--light-clr: #f4ffc3;
+
+	/* !FONT SIZES */
+	--fs-primary: 14px;
+	--fs-small: 16px;
+	--fs-medium: 26px;
+	--fs-large: 38px;
+	--fs-xlarge: 56px;
+	--fs-huge: 78px;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--dark-clr);
+}
+
+h1,
+h2,
+h3,
+label,
+a,
+button {
+	font-family: var(--ff-headers);
+	margin: 0;
+	padding: 0;
+}
+
+p,
+input {
+	font-family: var(--ff-primary);
+}
+
+h1 {
+	font-size: var(--fs-huge);
+	font-weight: 900;
+	color: var(--light-clr);
+}
+
+h2 {
+	font-size: var(--fs-xlarge);
+	color: var(--light-clr);
+}
+
+h3 {
+	font-size: var(--fs-medium);
+	color: var(--light-clr);
+}
+
+a,
+label,
+input,
+p {
+	font-size: var(--fs-small);
+}
