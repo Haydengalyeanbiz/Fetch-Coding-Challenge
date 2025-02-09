@@ -127,18 +127,23 @@ const SearchPage = () => {
 								key={dog.id}
 								className='dog-card'
 							>
-								<img
-									className='dog-card-img'
-									src={dog.img}
-									alt={dog.name}
-								/>
+								<div className='dog-card-img-holder'>
+									<img
+										className='dog-card-img'
+										src={dog.img}
+										alt={dog.name}
+									/>
+								</div>
 								<div className='dog-card-info'>
 									<h3>{dog.name}</h3>
 									<p>Breed: {dog.breed}</p>
 									<p>Age: {dog.age}</p>
 									<p>Zip Code: {dog.zip_code}</p>
 
-									<button onClick={() => handleFavorite(dog)}>
+									<button
+										className='favorite-btn'
+										onClick={() => handleFavorite(dog)}
+									>
 										{isFavorited ? <FaHeart /> : <CiHeart />}
 									</button>
 								</div>
