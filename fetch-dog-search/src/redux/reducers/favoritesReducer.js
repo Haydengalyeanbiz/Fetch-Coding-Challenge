@@ -24,11 +24,16 @@ const initialState = {
 	match: null,
 };
 
-export const findMatch = (favoriteDogIds) => async (dispatch) => {
+export const findMatch = (favoriteDogIds) => async (dispatch, getState) => {
 	try {
 		const response = await apiClient.post('/dogs/match', favoriteDogIds);
 		if (response.status === 200) {
-			dispatch(setMatch(response.data.match));
+			const matchedId = response.data.match;
+			const { favorites } = getState().favorites;
+			const matchedDog = favorites.find((d) => d.id === matchedId);
+			if (matchedDog) {
+				dispatch(setMatch(matchedDog.name));
+			}
 		}
 	} catch (error) {
 		console.error('Matching failed', error);
@@ -44,7 +49,7 @@ const favoritesReducer = (state = initialState, action) => {
 				...state,
 				favorites: state.favorites.filter((dog) => dog.id !== action.payload),
 			};
-		case 'SET_MATCH':
+		case SET_MATCH:
 			return { ...state, match: action.payload };
 		default:
 			return state;

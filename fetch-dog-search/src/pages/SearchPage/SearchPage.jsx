@@ -5,7 +5,6 @@ import { fetchDogs, fetchBreeds } from '../../redux/reducers/dogsReducer';
 import {
 	setFavorite,
 	removeFavorite,
-	findMatch,
 } from '../../redux/reducers/favoritesReducer';
 import BreedSearch from '../../components/BreedSearch/BreedSearch';
 import { CiHeart } from 'react-icons/ci';
@@ -15,12 +14,13 @@ import { LuBone } from 'react-icons/lu';
 const SearchPage = () => {
 	const dispatch = useDispatch();
 
+	// make the local state variables
 	const [breedFilter, setBreedFilter] = useState('');
-
 	const [sortOrder, setSortOrder] = useState('desc');
 	const [pageCursor, setPageCursor] = useState(0);
 	const [pageSize, setPageSize] = useState(5);
 
+	// grab the redux state variables
 	const { dogs, total, loading, breeds } = useSelector((state) => state.dogs);
 	const { favorites, match } = useSelector((state) => state.favorites);
 
@@ -58,7 +58,7 @@ const SearchPage = () => {
 		}
 	};
 
-	// handler to add/remove favorite
+	// handler for adding and removing favorites
 	const handleFavorite = (dog) => {
 		const alreadyFavorite = favorites.find((fav) => fav.id === dog.id);
 		if (alreadyFavorite) {
@@ -68,17 +68,10 @@ const SearchPage = () => {
 		}
 	};
 
-	// handler to generate match from favorites
-	const handleFindMatch = () => {
-		if (!favorites.length) return;
-		const favoriteIds = favorites.map((dog) => dog.id);
-		dispatch(findMatch(favoriteIds));
-	};
-
 	return (
 		<div className='search-container'>
-			<h1>
-				<LuBone /> Find your new best friend <LuBone />
+			<h1 className='search-title'>
+				<LuBone /> Find your new fureverfriend <LuBone />
 			</h1>
 
 			{/* Search for the breeds */}
@@ -92,25 +85,30 @@ const SearchPage = () => {
 
 			{/* Sort Toggle */}
 			<div className='sort-toggle'>
-				<button onClick={handleToggleSort}>
+				<button
+					onClick={handleToggleSort}
+					className='search-sort-button'
+				>
 					Sort by Breed: {sortOrder.toUpperCase()}
 				</button>
 			</div>
 
-			{/* Pagination Controls */}
+			{/* Pagination Controls top */}
 			<div className='pagination-controls'>
-				<button
-					onClick={handlePrevPage}
-					disabled={pageCursor === 0}
-				>
-					Previous
-				</button>
-				<button
-					onClick={handleNextPage}
-					disabled={pageCursor + pageSize >= total}
-				>
-					Next
-				</button>
+				<div className='controls-btn-holder'>
+					<button
+						onClick={handlePrevPage}
+						disabled={pageCursor === 0}
+					>
+						Previous
+					</button>
+					<button
+						onClick={handleNextPage}
+						disabled={pageCursor + pageSize >= total}
+					>
+						Next
+					</button>
+				</div>
 				<p>
 					Showing {dogs.length} of {total} total
 				</p>
@@ -128,60 +126,45 @@ const SearchPage = () => {
 							<div
 								key={dog.id}
 								className='dog-card'
-								style={{
-									border: '1px solid #ddd',
-									margin: '1rem 0',
-									padding: '1rem',
-								}}
 							>
 								<img
+									className='dog-card-img'
 									src={dog.img}
 									alt={dog.name}
-									width={150}
-									height={150}
 								/>
-								<h3>{dog.name}</h3>
-								<p>Breed: {dog.breed}</p>
-								<p>Age: {dog.age}</p>
-								<p>Zip Code: {dog.zip_code}</p>
+								<div className='dog-card-info'>
+									<h3>{dog.name}</h3>
+									<p>Breed: {dog.breed}</p>
+									<p>Age: {dog.age}</p>
+									<p>Zip Code: {dog.zip_code}</p>
 
-								<button onClick={() => handleFavorite(dog)}>
-									{isFavorited ? <FaHeart /> : <CiHeart />}
-								</button>
+									<button onClick={() => handleFavorite(dog)}>
+										{isFavorited ? <FaHeart /> : <CiHeart />}
+									</button>
+								</div>
 							</div>
 						);
 					})}
 			</div>
-
-			{/* Favorites & Matchmaking */}
-			<div
-				className='favorites-section'
-				style={{ marginTop: '2rem' }}
-			>
-				<h2>Your Favorites</h2>
-				{favorites.map((dog) => (
-					<div key={dog.id}>
-						<span>{dog.name}</span>
-						<button onClick={() => dispatch(removeFavorite(dog.id))}>X</button>
-					</div>
-				))}
-
-				<button
-					onClick={handleFindMatch}
-					disabled={!favorites.length}
-				>
-					Generate Match
-				</button>
-
-				{match && (
-					<div
-						className='match-result'
-						style={{ marginTop: '1rem' }}
+			{/* Pagination Controls bottom */}
+			<div className='pagination-controls'>
+				<div className='controls-btn-holder'>
+					<button
+						onClick={handlePrevPage}
+						disabled={pageCursor === 0}
 					>
-						<h3>You got matched with Dog ID: {match}</h3>
-						{/* Optionally, fetch more details about this dog if you want. */}
-					</div>
-				)}
+						Previous
+					</button>
+					<button
+						onClick={handleNextPage}
+						disabled={pageCursor + pageSize >= total}
+					>
+						Next
+					</button>
+				</div>
+				<p>
+					Showing {dogs.length} of {total} total
+				</p>
 			</div>
 		</div>
 	);
