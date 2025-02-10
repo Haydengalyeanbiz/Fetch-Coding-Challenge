@@ -1,15 +1,14 @@
 import { NavLink } from 'react-router-dom';
-import './Navbar.css'; // optional
+import './Navbar.css';
 import { SiWolframlanguage } from 'react-icons/si';
 
 const NavBar = () => {
 	return (
 		<nav className='nav-bar'>
 			<h3 className='navbar-title'>
-				<SiWolframlanguage />
-				Furever Friends
+				<SiWolframlanguage /> Furever Friends
 			</h3>
-			<ul>
+			<ul className='navbar-items'>
 				<li>
 					<NavLink
 						to='/search'

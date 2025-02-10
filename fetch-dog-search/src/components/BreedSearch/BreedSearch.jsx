@@ -34,56 +34,39 @@ const BreedSearch = ({ selectedBreed, onSelectBreed }) => {
 	);
 
 	return (
-		<div
-			className='breed-search'
-			style={{ position: 'relative' }}
-		>
+		<div className='breed-search'>
 			{loadingBreeds ? (
 				<p>Loading breeds...</p>
 			) : (
 				<>
-					<label htmlFor='breedSearch'>Type to Filter by Breed:</label>
-					<input
-						id='breedSearch'
-						type='text'
-						placeholder='e.g. Husky'
-						value={query}
-						onChange={handleInputChange}
-						onFocus={() => setShowSuggestions(true)}
-						style={{ width: '200px', marginLeft: '0.5rem' }}
-					/>
-					{showSuggestions && query.length > 0 && (
-						<ul
-							className='suggestions'
-							style={{
-								position: 'absolute',
-								zIndex: 999,
-								background: '#fff',
-								border: '1px solid #ccc',
-								margin: 0,
-								padding: '0.5rem',
-								listStyleType: 'none',
-								width: '200px',
-							}}
-						>
-							{filteredBreeds.slice(0, 8).map((breed) => (
-								<li
-									key={breed}
-									onClick={() => handleSuggestionClick(breed)}
-									style={{
-										padding: '0.25rem 0',
-										cursor: 'pointer',
-										color: 'blue',
-									}}
-								>
-									{breed}
-								</li>
-							))}
-							{filteredBreeds.length === 0 && (
-								<li style={{ color: '#999' }}>No breeds match.</li>
-							)}
-						</ul>
-					)}
+					<label htmlFor='breedSearch'>Filter by Breed:</label>
+					<div className='breed-search-dropdown'>
+						<input
+							id='breedSearch'
+							type='text'
+							placeholder='e.g. Husky'
+							value={query}
+							onChange={handleInputChange}
+							onFocus={() => setShowSuggestions(true)}
+							className='breed-search-input'
+						/>
+						{showSuggestions && query.length > 0 && (
+							<ul className='suggestions'>
+								{filteredBreeds.slice(0, 8).map((breed) => (
+									<li
+										key={breed}
+										onClick={() => handleSuggestionClick(breed)}
+										className='breed-suggestion'
+									>
+										{breed}
+									</li>
+								))}
+								{filteredBreeds.length === 0 && (
+									<li className='breed-suggestion'>No breeds match.</li>
+								)}
+							</ul>
+						)}
+					</div>
 				</>
 			)}
 		</div>

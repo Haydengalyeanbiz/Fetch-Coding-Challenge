@@ -16,9 +16,10 @@ const SearchPage = () => {
 
 	// make the local state variables
 	const [breedFilter, setBreedFilter] = useState('');
-	const [sortOrder, setSortOrder] = useState('desc');
+	const [zipFilter, setZipFilter] = useState('');
+	const [sortOrder, setSortOrder] = useState('asc');
 	const [pageCursor, setPageCursor] = useState(0);
-	const [pageSize, setPageSize] = useState(5);
+	const [pageSize, setPageSize] = useState(18);
 
 	// grab the redux state variables
 	const { dogs, total, loading, breeds } = useSelector((state) => state.dogs);
@@ -32,6 +33,9 @@ const SearchPage = () => {
 		if (breedFilter) {
 			filters.breeds = [breedFilter];
 		}
+		if (zipFilter) {
+			filters.zipCodes = [zipFilter];
+		}
 		// sort by breed + direction
 		filters.sort = `breed:${sortOrder}`;
 		// add the pagination
@@ -39,7 +43,7 @@ const SearchPage = () => {
 		filters.from = pageCursor;
 		//dispatch the fetch
 		dispatch(fetchDogs(filters));
-	}, [dispatch, breedFilter, sortOrder, pageCursor, pageSize]);
+	}, [dispatch, breedFilter, zipFilter, sortOrder, pageCursor, pageSize]);
 
 	// function for sorting order of dogs
 	const handleToggleSort = () => {
@@ -70,48 +74,59 @@ const SearchPage = () => {
 
 	return (
 		<div className='search-container'>
-			<h1 className='search-title'>
-				<LuBone /> Find your new fureverfriend <LuBone />
-			</h1>
+			<div className='search-header'>
+				<h1 className='search-title'>
+					<LuBone /> Find your new furever friend <LuBone />
+				</h1>
+				<div className='breed-sort-holder'>
+					{/* Search for the breeds */}
+					<BreedSearch
+						selectedBreed={breedFilter}
+						onSelectBreed={(breed) => {
+							setBreedFilter(breed);
+							setPageCursor(0);
+						}}
+					/>
+					<label>Filter by Zip Code:</label>
+					<input
+						className='zipcode'
+						placeholder='e.g. 37334'
+						type='text'
+						value={zipFilter}
+						onChange={(e) => setZipFilter(e.target.value)}
+					/>
 
-			{/* Search for the breeds */}
-			<BreedSearch
-				selectedBreed={breedFilter}
-				onSelectBreed={(breed) => {
-					setBreedFilter(breed);
-					setPageCursor(0);
-				}}
-			/>
-
-			{/* Sort Toggle */}
-			<div className='sort-toggle'>
-				<button
-					onClick={handleToggleSort}
-					className='search-sort-button'
-				>
-					Sort by Breed: {sortOrder.toUpperCase()}
-				</button>
+					{/* Sort Toggle */}
+					<div className='sort-toggle'>
+						<button
+							onClick={handleToggleSort}
+							className='search-sort-button'
+						>
+							Sort by Breed: {sortOrder.toUpperCase()}
+						</button>
+					</div>
+				</div>
 			</div>
 
 			{/* Pagination Controls top */}
 			<div className='pagination-controls'>
 				<div className='controls-btn-holder'>
 					<button
+						className='controls-btn'
 						onClick={handlePrevPage}
 						disabled={pageCursor === 0}
 					>
 						Previous
 					</button>
 					<button
+						className='controls-btn'
 						onClick={handleNextPage}
 						disabled={pageCursor + pageSize >= total}
 					>
 						Next
 					</button>
 				</div>
-				<p>
-					Showing {dogs.length} of {total} total
-				</p>
+				<p>{total} total dogs</p>
 			</div>
 
 			{/* Loading indicator */}
@@ -136,9 +151,11 @@ const SearchPage = () => {
 								</div>
 								<div className='dog-card-info'>
 									<h3>{dog.name}</h3>
-									<p>Breed: {dog.breed}</p>
-									<p>Age: {dog.age}</p>
-									<p>Zip Code: {dog.zip_code}</p>
+									<div className='dog-card-small-info'>
+										<p>Breed: {dog.breed}</p>
+										<p>Age: {dog.age}</p>
+										<p>Zip Code: {dog.zip_code}</p>
+									</div>
 
 									<button
 										className='favorite-btn'
@@ -155,21 +172,21 @@ const SearchPage = () => {
 			<div className='pagination-controls'>
 				<div className='controls-btn-holder'>
 					<button
+						className='controls-btn'
 						onClick={handlePrevPage}
 						disabled={pageCursor === 0}
 					>
 						Previous
 					</button>
 					<button
+						className='controls-btn'
 						onClick={handleNextPage}
 						disabled={pageCursor + pageSize >= total}
 					>
 						Next
 					</button>
 				</div>
-				<p>
-					Showing {dogs.length} of {total} total
-				</p>
+				<p>{total} total dogs</p>
 			</div>
 		</div>
 	);

@@ -1,0 +1,16 @@
+.nav-bar {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.navbar-items {
+	display: flex;
+	gap: 1rem;
+}
+
+.active {
+	border: solid 2px var(--light-clr);
+	border-radius: 12px;
+	padding: 0.25rem;
+}

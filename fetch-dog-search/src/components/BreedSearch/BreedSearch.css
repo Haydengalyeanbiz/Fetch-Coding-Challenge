@@ -1,0 +1,32 @@
+.breed-search {
+	display: flex;
+}
+
+.breed-search-dropdown {
+	position: relative;
+}
+
+.breed-search-input {
+	width: 200px;
+	padding: 0.3rem;
+	border-radius: 12px;
+	background-color: var(--light-clr);
+	border: solid 2px var(--light-accent-clr);
+}
+
+.suggestions {
+	position: absolute;
+	z-index: 999;
+	border: 2px solid var(--light-accent-clr);
+	border-radius: 12px;
+	margin: 0.24rem 0;
+	padding: 0.25rem;
+	list-style: none;
+	width: 200px;
+	background-color: var(--dark-clr);
+}
+
+.breed-suggestion {
+	font-family: var(--ff-primary);
+	padding: 0.25rem;
+}
