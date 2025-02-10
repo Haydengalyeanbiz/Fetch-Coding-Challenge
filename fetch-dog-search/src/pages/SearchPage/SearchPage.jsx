@@ -9,7 +9,6 @@ import {
 import BreedSearch from '../../components/BreedSearch/BreedSearch';
 import { CiHeart } from 'react-icons/ci';
 import { FaHeart } from 'react-icons/fa';
-import { LuBone } from 'react-icons/lu';
 // this component has a lot of moving parts so I put comments to help organize and explain what is going on
 const SearchPage = () => {
 	const dispatch = useDispatch();
@@ -75,9 +74,6 @@ const SearchPage = () => {
 	return (
 		<div className='search-container'>
 			<div className='search-header'>
-				<h1 className='search-title'>
-					<LuBone /> Find your new furever friend <LuBone />
-				</h1>
 				<div className='breed-sort-holder'>
 					{/* Search for the breeds */}
 					<BreedSearch

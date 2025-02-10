@@ -16,14 +16,20 @@ const FavoritesPage = () => {
 				{favorites.map((dog) => (
 					<div
 						key={dog.id}
-						className='dog-card'
+						className='dog-card-favorites'
 					>
-						<img
-							src={dog.img}
-							alt={dog.name}
-						/>
+						<div className='dog-card-img-holder-favorites'>
+							<img
+								className='dog-card-img-favorites'
+								src={dog.img}
+								alt={dog.name}
+							/>
+						</div>
 						<h3>{dog.name}</h3>
-						<button onClick={() => dispatch(removeFavorite(dog.id))}>
+						<button
+							className='remove-btn'
+							onClick={() => dispatch(removeFavorite(dog.id))}
+						>
 							Remove
 						</button>
 					</div>
