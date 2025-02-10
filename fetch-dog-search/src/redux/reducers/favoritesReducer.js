@@ -32,7 +32,7 @@ export const findMatch = (favoriteDogIds) => async (dispatch, getState) => {
 			const { favorites } = getState().favorites;
 			const matchedDog = favorites.find((d) => d.id === matchedId);
 			if (matchedDog) {
-				dispatch(setMatch(matchedDog.name));
+				dispatch(setMatch(matchedDog));
 			}
 		}
 	} catch (error) {
