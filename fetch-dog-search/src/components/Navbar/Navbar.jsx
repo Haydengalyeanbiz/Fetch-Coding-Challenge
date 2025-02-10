@@ -1,8 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 import { SiWolframlanguage } from 'react-icons/si';
+import { IoLogOutOutline } from 'react-icons/io5';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/reducers/authReducer';
 
 const NavBar = () => {
+	const dispatch = useDispatch();
+
+	const handleLogout = () => {
+		dispatch(logout());
+	};
 	return (
 		<nav className='nav-bar'>
 			<h3 className='navbar-title'>
@@ -34,6 +42,9 @@ const NavBar = () => {
 					</NavLink>
 				</li>
 			</ul>
+			<button onClick={() => handleLogout()}>
+				<IoLogOutOutline />
+			</button>
 		</nav>
 	);
 };
