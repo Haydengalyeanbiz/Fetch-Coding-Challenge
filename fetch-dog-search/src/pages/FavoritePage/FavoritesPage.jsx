@@ -13,27 +13,31 @@ const FavoritesPage = () => {
 		<div className='favorites-section'>
 			<h2>Your Favorites</h2>
 			<div className='favorites-list'>
-				{favorites.map((dog) => (
-					<div
-						key={dog.id}
-						className='dog-card-favorites'
-					>
-						<div className='dog-card-img-holder-favorites'>
-							<img
-								className='dog-card-img-favorites'
-								src={dog.img}
-								alt={dog.name}
-							/>
-						</div>
-						<h3>{dog.name}</h3>
-						<button
-							className='remove-btn'
-							onClick={() => dispatch(removeFavorite(dog.id))}
+				{favorites.length > 0 ? (
+					favorites.map((dog) => (
+						<div
+							key={dog.id}
+							className='dog-card-favorites'
 						>
-							Remove
-						</button>
-					</div>
-				))}
+							<div className='dog-card-img-holder-favorites'>
+								<img
+									className='dog-card-img-favorites'
+									src={dog.img}
+									alt={dog.name}
+								/>
+							</div>
+							<h3>{dog.name}</h3>
+							<button
+								className='remove-btn'
+								onClick={() => dispatch(removeFavorite(dog.id))}
+							>
+								Remove
+							</button>
+						</div>
+					))
+				) : (
+					<h3>No favorites</h3>
+				)}
 			</div>
 		</div>
 	);

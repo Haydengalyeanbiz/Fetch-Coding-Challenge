@@ -83,8 +83,9 @@ const SearchPage = () => {
 							setPageCursor(0);
 						}}
 					/>
-					<label>Filter by Zip Code:</label>
+					<label htmlFor='zipcode'>Filter by Zip Code:</label>
 					<input
+						id='zipcode'
 						className='zipcode'
 						placeholder='e.g. 37334'
 						type='text'

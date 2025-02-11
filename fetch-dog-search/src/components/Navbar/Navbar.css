@@ -4,6 +4,13 @@
 	align-items: center;
 }
 
+.navbar-item-holder {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	align-items: center;
+}
+
 .navbar-items {
 	display: flex;
 	gap: 1rem;
@@ -13,4 +20,16 @@
 	border: solid 2px var(--light-clr);
 	border-radius: 12px;
 	padding: 0.25rem;
+}
+
+.logout-btn {
+	background-color: transparent;
+	border: none;
+	font-size: var(--fs-medium);
+	color: var(--light-clr);
+	transition: var(--hover);
+}
+
+.logout-btn:hover {
+	color: var(--light-accent-clr);
 }

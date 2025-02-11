@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { findMatch } from '../../redux/reducers/favoritesReducer';
+import './MatchPage.css';
+import Lottie from 'react-lottie';
+import animationData from '../../lotties/Animation - 1739232449720.json';
 
 const MatchPage = () => {
 	const dispatch = useDispatch();
@@ -19,20 +22,29 @@ const MatchPage = () => {
 		dispatch(findMatch(favoriteIds));
 	};
 
+	const defaultOptions = {
+		loop: true,
+		autoplay: true,
+		animationData: animationData,
+		rendererSettings: {
+			preserveAspectRatio: 'xMidYMid slice',
+		},
+	};
+
 	useEffect(() => {
 		if (matchDog) {
 			const timer = setTimeout(() => {
 				setIsSpinning(false);
 				setShowResult(true);
 			}, 2000);
-			return () => clearTimeout(timer);
 		}
 	}, [matchDog]);
 	return (
-		<div style={{ textAlign: 'center', marginTop: '2rem' }}>
+		<div className='match-me-section'>
 			<h1>Match Mini Game</h1>
 
 			<button
+				className=''
 				onClick={handleFindMatch}
 				disabled={isSpinning || !favorites.length}
 			>
@@ -40,21 +52,25 @@ const MatchPage = () => {
 			</button>
 
 			{isSpinning && (
-				<div style={{ marginTop: '1rem' }}>
-					<p className='spin-text'>Spinning...</p>
+				<div>
+					<Lottie
+						options={defaultOptions}
+						height={400}
+						width={400}
+					/>
 				</div>
 			)}
 
 			{showResult && matchDog && (
-				<div style={{ marginTop: '2rem', transition: 'opacity 0.5s' }}>
+				<div className='result-div'>
 					<h2>✨ Your Match is: {matchDog.name}! ✨</h2>
-					<img
-						src={matchDog.img}
-						alt={matchDog.name}
-						style={{ width: '300px', height: '300px', objectFit: 'cover' }}
-					/>
 					<p>Breed: {matchDog.breed}</p>
 					<p>Age: {matchDog.age}</p>
+					<img
+						className='result-img'
+						src={matchDog.img}
+						alt={matchDog.name}
+					/>
 				</div>
 			)}
 		</div>
