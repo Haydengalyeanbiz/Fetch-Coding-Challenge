@@ -44,7 +44,7 @@ const MatchPage = () => {
 			<h1>Match Mini Game</h1>
 
 			<button
-				className=''
+				className='match-me-btn'
 				onClick={handleFindMatch}
 				disabled={isSpinning || !favorites.length}
 			>
@@ -63,7 +63,7 @@ const MatchPage = () => {
 
 			{showResult && matchDog && (
 				<div className='result-div'>
-					<h2>✨ Your Match is: {matchDog.name}! ✨</h2>
+					<h2>✨ Your Match is {matchDog.name}! ✨</h2>
 					<p>Breed: {matchDog.breed}</p>
 					<p>Age: {matchDog.age}</p>
 					<img
